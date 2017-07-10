@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MatheMagician</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="knockout-3.4.2.js"></script>
+	<script type="text/javascript" src="page.js"></script>
+</head>
+<body>
+	<div id="banner"></div>
+	
+	<!-- Menu -->
+	<button data-bind="click: selectHome">Home</button>
+	<!-- ko foreach: courses -->
+        <button data-bind="text: name, click: $root.selectCourse"></button>
+    <!-- /ko -->
+	
+	<!-- Home page -->
+	<div data-bind="if: !selectedCourse()">
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/EGDbnmBpfRY" frameborder="0" allowfullscreen></iframe>
+		
+		<h2>Welcome</h2>
+		<p>My name is Bernard Meulenbroek; I am a assistant professor at the mathematics department of Delft University of Technology. For the past ten years I have been teaching mathematics (calculus, linear algebra, complex analysis) to engineering students.</p>
+		<p>Many engineering students have three types of questions: why, how and what. 'Why do I need to know all these mathematics?' 'How do I need to do this computation?' 'What does it ... mean in reality?' So in my (web)lectures I try to address all three questions.</p>
+		<p>I hope the videos will help you during your engineering study. If you have any questions, just ask on our forums. Mathematics is a lot more fun when you do not just understand the 'How' part but also know the 'what' and the 'why' part.</p>
+		<p>Good luck and have fun!</p>
+	</div>
+	
+	<!-- Course page -->
+	<div data-bind="if: selectedCourse">
+		<h2 data-bind="text: selectedCourse().name"></h2>
+		<!-- ko foreach: selectedCourse().playlists -->
+		<h3 data-bind="text: name"></h3>
+		<iframe width="560" height="315" frameborder="0" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/videoseries?list=' + id}"></iframe>
+		<!-- /ko -->
+	</div>
+	
+
+
+</body>
+</html>
