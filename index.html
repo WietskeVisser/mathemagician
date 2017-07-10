@@ -3,17 +3,25 @@
 <head>
 	<title>MatheMagician</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="semantic.min.css">
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+	<script src="semantic.min.js"></script>
 	<script type="text/javascript" src="knockout-3.4.2.js"></script>
 	<script type="text/javascript" src="page.js"></script>
 </head>
 <body>
 	<div id="banner"></div>
-	
+
 	<!-- Menu -->
-	<button data-bind="click: selectHome">Home</button>
-	<!-- ko foreach: courses -->
-        <button data-bind="text: name, click: $root.selectCourse"></button>
-    <!-- /ko -->
+	<div class="ui vertical pointing menu">
+		<a class="item" data-bind="css: { active: !selectedCourse() }, click: selectHome">Home</a>
+	</div>
+	<div class="ui vertical pointing menu">
+		<div class="header item">Courses</div>
+		<!-- ko foreach: courses -->
+		<a class="item" data-bind="text: name, css: { active: $root.selectedCourse() === $data }, click: $root.selectCourse"></a>
+		<!-- /ko -->
+	</div>
 	
 	<!-- Home page -->
 	<div data-bind="if: !selectedCourse()">
@@ -34,8 +42,5 @@
 		<iframe width="560" height="315" frameborder="0" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/videoseries?list=' + id}"></iframe>
 		<!-- /ko -->
 	</div>
-	
-
-
 </body>
 </html>
