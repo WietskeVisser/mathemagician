@@ -1,5 +1,5 @@
 #banner {
-	background-image: url("banner.jpg");
-	width: 2120px;
-	height: 351px;
+	width: 100%;
+	height: auto;
+	margin-bottom: 24px;
 }
