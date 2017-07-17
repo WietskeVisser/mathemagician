@@ -56,7 +56,7 @@ var data = {
 		},
 		{
 			"name": "Calculus",
-			"intro": "Web lectures on selected topics of single variable calculus: introduction to functions, sequences, series and power series. What topic should be covered next? Post your ideas in the comments section of the <a href=\"https://www.youtube.com/watch?v=EGDbnmBpfRY\" target=\"_blank\">introduction video</a>!",
+			"intro": "These web lectures cover a few selected topics of single variable calculus: introduction to functions, sequences, series and power series. What topic should be covered next? Post your ideas in the comments section of the <a href=\"https://www.youtube.com/watch?v=EGDbnmBpfRY\" target=\"_blank\">introduction video</a>!",
 			"playlists": [
 				{
 					"name": "1. Introduction to functions",
@@ -78,7 +78,7 @@ var data = {
 		},
 		{
 			"name": "Complex Analysis",
-			"intro": "",
+			"intro": "A number of weblectures on Complex Analysis, mainly focussed on the difficult exercises.",
 			"playlists": [
 				{
 					"name": "1. Introduction and Topology",
