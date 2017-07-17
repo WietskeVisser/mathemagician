@@ -11,6 +11,46 @@ var data = {
 				{
 					"name": "2. Systems of linear equations",
 					"id": "PLJMXXdEk8kMBCcedEI8B13tdYBGCnUISg"
+				},
+				{
+					"name": "3. Span and independence",
+					"id": "PLJMXXdEk8kMD3tAS0Vmu5nm5AOfUDip1H"
+				},
+				{
+					"name": "4. Matrix operations",
+					"id": "PLJMXXdEk8kMAzEXC3tizSWp5bT7Eami7w"
+				},
+				{
+					"name": "5. Introduction to linear transformations",
+					"id": "PLJMXXdEk8kMDx5bDMrGDLkLIFN0e2-q1a"
+				},
+				{
+					"name": "6. Subspaces, basis and dimension",
+					"id": "PLJMXXdEk8kMAE_oyBuJPC7ThAHi2nXcBA"
+				},
+				{
+					"name": "7. Determinants",
+					"id": "PLJMXXdEk8kMD7QjxGPuOdcuWTtN27qilp"
+				},
+				{
+					"name": "8. Eigenvalues and eigenvectors",
+					"id": "PLJMXXdEk8kMDBNJh06-YrmPN3MqVEFY-Z"
+				},
+				{
+					"name": "9. Orthogonality",
+					"id": "PLJMXXdEk8kMCeRfmXpRVspVMJTo3343X3"
+				},
+				{
+					"name": "10. Vector spaces",
+					"id": "PLJMXXdEk8kMDP0c549JUz6o4Qw9B0PrQW"
+				},
+				{
+					"name": "11. Scaling rotation matrices and the matrix exponential",
+					"id": "PLJMXXdEk8kMBFbks4UMWWxk9tnFAcyCv2"
+				},
+				{
+					"name": "12. Dynamical systems and differential equations",
+					"id": "PLJMXXdEk8kMDxjfmQefEJ01DuJs5kpJgT"
 				}
 			]
 		},
@@ -25,6 +65,14 @@ var data = {
 				{
 					"name": "2. Limits and continuity",
 					"id": "PLJMXXdEk8kMDno0Eq0Ph7L7zOtNgYMqQn"
+				},
+				{
+					"name": "3. Sequences and series",
+					"id": "PLJMXXdEk8kMAeBLj14HX0fhe_LypRc4aW"
+				},
+				{
+					"name": "4. Power series",
+					"id": "PLJMXXdEk8kMBZS4PP2htcZ8XNdLMv3Uvp"
 				}
 			]
 		},
@@ -39,6 +87,22 @@ var data = {
 				{
 					"name": "2. Elementary functions",
 					"id": "PLJMXXdEk8kMDETr7WetPdqF9GbQud6jDd"
+				},
+				{
+					"name": "3. Analytic functions",
+					"id": "PLJMXXdEk8kMCptYlahDr7_-6fw9Ll30GA"
+				},
+				{
+					"name": "4. Introduction to integration",
+					"id": "PLJMXXdEk8kMBctthQsNRPaoWywbiPCMxA"
+				},
+				{
+					"name": "5. Sequences and series",
+					"id": "PLJMXXdEk8kMBa1Ke10xEdEFrtp4ZSYaxQ"
+				},
+				{
+					"name": "6. Contour integrals",
+					"id": "PLJMXXdEk8kMBRTILerSGnjvQg-_9SlHQR"
 				}
 			]
 		},
