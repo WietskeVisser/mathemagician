@@ -5,7 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="semantic.min.css">
 	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-	<script src="semantic.min.js"></script>
+	<script type="text/javascript" src="semantic.min.js"></script>
 	<script type="text/javascript" src="knockout-3.4.2.js"></script>
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="page.js"></script>
@@ -18,12 +18,12 @@
 		<!-- Menu -->
 		<div class="four wide column">
 			<div class="ui vertical pointing menu">
-				<a class="item" data-bind="css: { active: !selectedCourse() }, click: selectHome">Home</a>
+				<a class="item" data-bind="css: { active: !selectedCourse }" href="index.html">Home</a>
 			</div>
 			<div class="ui vertical pointing menu">
 				<div class="header item">Courses</div>
 				<!-- ko foreach: courses -->
-				<a class="item" data-bind="text: name, css: { active: $root.selectedCourse() === $data }, click: $root.selectCourse"></a>
+				<a class="item" data-bind="text: name, css: { active: $root.selectedCourse === $data }, attr: { href: 'index.html?page=' + pageId }"></a>
 				<!-- /ko -->
 			</div>
 		</div>
@@ -32,7 +32,7 @@
 		<div class="twelve wide column">
 
 			<!-- Home page -->
-			<div data-bind="if: !selectedCourse()">
+			<div data-bind="if: !selectedCourse">
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/EGDbnmBpfRY" frameborder="0" allowfullscreen></iframe>
 
 				<h3>MatheMagician: mathematics for engineers</h3>
@@ -51,9 +51,9 @@
 
 			<!-- Course page -->
 			<div data-bind="if: selectedCourse">
-				<h2 data-bind="text: selectedCourse().name"></h2>
-				<div data-bind="html: selectedCourse().intro"></div>
-				<!-- ko foreach: selectedCourse().playlists -->
+				<h2 data-bind="text: selectedCourse.name"></h2>
+				<div data-bind="html: selectedCourse.intro"></div>
+				<!-- ko foreach: selectedCourse.playlists -->
 				<h3 data-bind="text: name"></h3>
 				<iframe width="560" height="315" frameborder="0" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/videoseries?list=' + id}"></iframe>
 				<!-- /ko -->
