@@ -3,3 +3,7 @@
 	height: auto;
 	margin-bottom: 24px;
 }
+
+iframe {
+	border: 0;
+}

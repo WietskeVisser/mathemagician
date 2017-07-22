@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>MatheMagician</title>
+	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="semantic.min.css">
 	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
@@ -11,7 +12,7 @@
 	<script type="text/javascript" src="page.js"></script>
 </head>
 <body>
-	<img id="banner" src="banner.jpg"/>
+	<img id="banner" src="banner.jpg" alt="MatheMagician"/>
 
 	<div class="ui grid container">
 
@@ -33,13 +34,13 @@
 
 			<!-- Home page -->
 			<div data-bind="if: !selectedCourse">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/EGDbnmBpfRY" frameborder="0" allowfullscreen></iframe>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/EGDbnmBpfRY" allowfullscreen></iframe>
 
 				<h3>MatheMagician: mathematics for engineers</h3>
-				<p>Many engineering students have three types of questions: why, how and what. ‘Why do I need to know all these mathematics?’
-					‘How do I need to do this computation?’ ‘What does it mean in reality?’ So in my (web)lectures I try to address all three questions.
+				<p>Many engineering students have three types of questions: why, how and what. 'Why do I need to know all these mathematics?'
+					'How do I need to do this computation?' 'What does it mean in reality?' So in my (web)lectures I try to address all three questions.
 					I hope the videos will help you during your engineering study. If you have any questions, just ask in the comments section on YouTube.
-					Mathematics is a lot more fun when you do not just understand the ‘How’ part but also know the ‘what’ and the ‘why’ part.</p>
+					Mathematics is a lot more fun when you do not just understand the 'How' part but also know the 'what' and the 'why' part.</p>
 
 				<p>Is the topic you are looking for not covered yet? Post your request in the comments of the introduction video! (YouTube account required)</p>
 
@@ -55,7 +56,7 @@
 				<div data-bind="html: selectedCourse.intro"></div>
 				<!-- ko foreach: selectedCourse.playlists -->
 				<h3 data-bind="text: name"></h3>
-				<iframe width="560" height="315" frameborder="0" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/videoseries?list=' + id}"></iframe>
+				<iframe width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/videoseries?list=' + id}"></iframe>
 				<!-- /ko -->
 			</div>
 		</div>

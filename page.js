@@ -1,7 +1,9 @@
+"use strict";
+
 var getUrlParameter = function(parameterKey) {
 	var parameters = decodeURIComponent(window.location.search.substring(1)).split('&');
-	for (var parameter of parameters) {
-		parameterKeyValue = parameter.split('=');
+	for (var i = 0; i < parameters.length; i++) {
+		var parameterKeyValue = parameters[i].split('=');
 		if (parameterKeyValue[0] === parameterKey) {
 			return parameterKeyValue[1];
 		}
@@ -11,7 +13,8 @@ var getUrlParameter = function(parameterKey) {
 
 var getCourseByPageId = function(courses, pageId) {
 	if (pageId) {
-		for (var course of courses) {
+		for (var i = 0; i < courses.length; i++) {
+			var course = courses[i];
 			if (pageId === course.pageId) {
 				return course;
 			}
