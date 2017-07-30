@@ -5,8 +5,10 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="semantic.min.css">
+	<link rel="stylesheet" type="text/css" href="accordion.min.css">
 	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="semantic.min.js"></script>
+	<script type="text/javascript" src="accordion.min.js"></script>
 	<script type="text/javascript" src="knockout-3.4.2.js"></script>
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="page.js"></script>
@@ -19,12 +21,13 @@
 		<!-- Menu -->
 		<div class="four wide computer five wide tablet column">
 			<div class="ui vertical pointing menu">
-				<a class="item" data-bind="css: { active: !selectedCourse }" href="index.html">Home</a>
+				<a class="item" data-bind="css: { active: !pageId }" href="index.html">Home</a>
+				<a class="item" data-bind="css: { active: pageId === 'search'}" href="index.html?page=search">Search</a>
 			</div>
 			<div class="ui vertical pointing menu">
 				<div class="header item">Courses</div>
 				<!-- ko foreach: courses -->
-				<a class="item" data-bind="text: name, css: { active: $root.selectedCourse === $data }, attr: { href: 'index.html?page=' + pageId }"></a>
+				<a class="item" data-bind="text: name, css: { active: $root.pageId === pageId }, attr: { href: 'index.html?page=' + pageId }"></a>
 				<!-- /ko -->
 			</div>
 		</div>
@@ -33,7 +36,7 @@
 		<div class="twelve wide computer eleven wide tablet column">
 
 			<!-- Home page -->
-			<div data-bind="if: !selectedCourse">
+			<div data-bind="if: !pageId">
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/EGDbnmBpfRY" allowfullscreen></iframe>
 
 				<h3>MatheMagician: mathematics for engineers</h3>
@@ -58,6 +61,36 @@
 				<h3 data-bind="text: name"></h3>
 				<iframe width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/videoseries?list=' + id}"></iframe>
 				<!-- /ko -->
+			</div>
+
+			<!-- Search page -->
+			<div data-bind="if: pageId === 'search'">
+				<h2>Search</h2>
+				<form data-bind="submit: search">
+					<div class="ui fluid action input">
+						<input type="text" placeholder="Search..." data-bind="value: searchQuery">
+						<button class="ui icon button">
+							<i class="search icon"></i>
+						</button>
+					</div>
+				</form>
+				<div data-bind="visible: searched">
+					<h3 style="margin-top: calc(2rem - 0.142857em);">Search results for: <span data-bind="text: searchQuery"</span></h3>
+					<p data-bind="visible: searchFailed">Something went wrong while searching. Please try again later.</p>
+					<p data-bind="visible: !searchResults().length">No videos found that match your query.</p>
+					
+					<div class="ui accordion">
+						<!-- ko foreach: searchResults -->
+						<div class="title">
+							<i class="dropdown icon"></i>
+							<span data-bind="text: snippet.title"></span>
+						</div>
+						<div class="content">
+							<iframe class="transition hidden" width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/' + id.videoId }"></iframe>
+						</div>
+						<!-- /ko -->
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

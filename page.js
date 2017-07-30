@@ -26,9 +26,29 @@ var getCourseByPageId = function(courses, pageId) {
 var ViewModel = function(data) {
 	var self = this;
 	self.courses = data.courses;
-	self.selectedCourse = getCourseByPageId(self.courses, getUrlParameter('page'));
+	self.pageId = getUrlParameter('page');
+	self.selectedCourse = getCourseByPageId(self.courses, self.pageId);
+	self.searchQuery = ko.observable(null);
+	self.searched = ko.observable(false);
+	self.searchResults = ko.observableArray([]);
+	self.searchFailed = ko.observable(false);
+	self.search = function() {
+		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.searchQuery()))
+			.done(function(response) {
+				self.searchFailed(false);
+				self.searchResults(response.items);
+			})
+			.fail(function(response) {
+				self.searchFailed(true);
+				self.searchResults([]);
+			})
+			.always(function(response) {
+				self.searched(true);
+			});
+	};
 };
 
 document.addEventListener('DOMContentLoaded', function() {
 	ko.applyBindings(new ViewModel(window.data));
+	$('.ui.accordion').accordion();
 });
