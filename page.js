@@ -29,6 +29,7 @@ var ViewModel = function(data) {
 	self.pageId = getUrlParameter('page');
 	self.selectedCourse = getCourseByPageId(self.courses, self.pageId);
 	self.searchQuery = ko.observable(null);
+	self.submittedSearchQuery = ko.observable(null);
 	self.searched = ko.observable(false);
 	self.searchResults = ko.observableArray([]);
 	self.searchFailed = ko.observable(false);
@@ -39,7 +40,8 @@ var ViewModel = function(data) {
 		if (self.invalidSearchQuery()) {
 			return;
 		}
-		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.searchQuery().trim()))
+		var q = self.searchQuery().trim();
+		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(q))
 			.done(function(response) {
 				self.searchFailed(false);
 				self.searchResults(response.items);
@@ -50,6 +52,7 @@ var ViewModel = function(data) {
 			})
 			.always(function(response) {
 				self.searched(true);
+				self.submittedSearchQuery(q)
 			});
 	};
 };
