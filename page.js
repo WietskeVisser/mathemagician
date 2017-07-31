@@ -32,8 +32,14 @@ var ViewModel = function(data) {
 	self.searched = ko.observable(false);
 	self.searchResults = ko.observableArray([]);
 	self.searchFailed = ko.observable(false);
+	self.invalidSearchQuery = ko.computed(function() {
+		return !self.searchQuery() || !self.searchQuery().trim();
+	});
 	self.search = function() {
-		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.searchQuery()))
+		if (self.invalidSearchQuery()) {
+			return;
+		}
+		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.searchQuery().trim()))
 			.done(function(response) {
 				self.searchFailed(false);
 				self.searchResults(response.items);
