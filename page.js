@@ -32,28 +32,47 @@ var ViewModel = function(data) {
 	self.submittedSearchQuery = ko.observable(null);
 	self.searched = ko.observable(false);
 	self.searchResults = ko.observableArray([]);
+	self.nextPageToken = ko.observable(null);
+	self.previousPageToken = ko.observable(null);
 	self.searchFailed = ko.observable(false);
 	self.invalidSearchQuery = ko.computed(function() {
 		return !self.searchQuery() || !self.searchQuery().trim();
 	});
-	self.search = function() {
-		if (self.invalidSearchQuery()) {
-			return;
-		}
-		var q = self.searchQuery().trim();
-		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(q))
+	self.doSearch = function(urlExtension) {
+		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=nextPageToken,prevPageToken,pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.submittedSearchQuery()) + urlExtension)
 			.done(function(response) {
 				self.searchFailed(false);
 				self.searchResults(response.items);
+				self.nextPageToken(response.nextPageToken);
+				self.previousPageToken(response.prevPageToken);
 			})
 			.fail(function(response) {
 				self.searchFailed(true);
 				self.searchResults([]);
+				self.nextPageToken(null);
+				self.previousPageToken(null);
 			})
 			.always(function(response) {
 				self.searched(true);
-				self.submittedSearchQuery(q)
 			});
+	};
+	self.search = function() {
+		if (self.invalidSearchQuery()) {
+			return;
+		}
+		var query = self.searchQuery().trim();
+		self.submittedSearchQuery(query);
+		self.doSearch('');
+	};
+	self.previousPage = function() {
+		if (self.previousPageToken()) {
+			self.doSearch('&pageToken=' + self.previousPageToken());
+		}
+	};
+	self.nextPage = function() {
+		if (self.nextPageToken()) {
+			self.doSearch('&pageToken=' + self.nextPageToken());
+		}
 	};
 };
 

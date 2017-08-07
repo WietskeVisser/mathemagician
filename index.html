@@ -79,7 +79,7 @@
 					<p data-bind="visible: searchFailed">Something went wrong while searching. Please try again later.</p>
 					<p data-bind="visible: !searchFailed() && !searchResults().length">No videos found that match your query.</p>
 					
-					<div class="ui accordion">
+					<div class="ui accordion" style="margin-bottom: 20px;">
 						<!-- ko foreach: searchResults -->
 						<div class="title">
 							<i class="dropdown icon"></i>
@@ -89,6 +89,10 @@
 							<iframe class="transition hidden" width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/' + id.videoId }"></iframe>
 						</div>
 						<!-- /ko -->
+					</div>
+					<div class="ui fluid two item pagination menu">
+						<a class="item" data-bind="css: { disabled: !previousPageToken() }, click: previousPage">Previous</a>
+						<a class="item" data-bind="css: { disabled: !nextPageToken() }, click: nextPage">Next</a>
 					</div>
 				</div>
 			</div>
