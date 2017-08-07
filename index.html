@@ -6,9 +6,11 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<link rel="stylesheet" type="text/css" href="semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="accordion.min.css">
+	<link rel="stylesheet" type="text/css" href="modal.min.css">
 	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="semantic.min.js"></script>
 	<script type="text/javascript" src="accordion.min.js"></script>
+	<script type="text/javascript" src="modal.min.js"></script>
 	<script type="text/javascript" src="knockout-3.4.2.js"></script>
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="page.js"></script>
@@ -74,20 +76,20 @@
 						</button>
 					</div>
 				</form>
+
 				<div data-bind="visible: searched">
 					<h3 style="margin-top: calc(2rem - 0.142857em);">Search results for: <span data-bind="text: submittedSearchQuery"></span></h3>
 					<p data-bind="visible: searchFailed">Something went wrong while searching. Please try again later.</p>
 					<p data-bind="visible: !searchFailed() && !searchResults().length">No videos found that match your query.</p>
 					
-					<div class="ui accordion" style="margin-bottom: 20px;">
+					<div class="ui relaxed divided list" style="margin-bottom: 20px;">
 						<!-- ko foreach: searchResults -->
-						<div class="title">
-							<i class="dropdown icon"></i>
-							<span data-bind="text: snippet.title"></span>
-						</div>
-						<div class="content">
-							<iframe class="transition hidden" width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/' + id.videoId }"></iframe>
-						</div>
+						<a class="item" data-bind="click: $root.showVideo">
+							<i class="right triangle middle aligned icon"></i>
+							<div class="content">
+								<div class="header" data-bind="text: snippet.title"></div>
+							</div>
+						</a>
 						<!-- /ko -->
 					</div>
 					<div class="ui fluid two item pagination menu">
@@ -95,6 +97,13 @@
 						<a class="item" data-bind="css: { disabled: !nextPageToken() }, click: nextPage">Next</a>
 					</div>
 				</div>
+			</div>
+
+			<!-- Video modal -->
+			<div id="videoModal" class="ui modal">
+				<i class="close icon"></i>
+				<div class="header"></div>
+				<div class="content"><iframe width="560" height="315"></iframe></div>
 			</div>
 		</div>
 	</div>

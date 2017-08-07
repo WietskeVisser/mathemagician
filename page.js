@@ -38,6 +38,15 @@ var ViewModel = function(data) {
 	self.invalidSearchQuery = ko.computed(function() {
 		return !self.searchQuery() || !self.searchQuery().trim();
 	});
+	self.showVideo = function(data) {
+		$('#videoModal')
+			.modal({
+				onShow: function() {
+					$(this).find('.header').text(data.snippet.title);
+					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + data.id.videoId + '"></iframe>');
+				}})
+			.modal('show');
+	};
 	self.doSearch = function(urlExtension) {
 		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=nextPageToken,prevPageToken,pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.submittedSearchQuery()) + urlExtension)
 			.done(function(response) {
