@@ -1,7 +1,7 @@
 var data = {
 	"courses": [
 		{
-			"pageId": "linearalgebra",
+			"id": "linearalgebra",
 			"name": "Linear Algebra",
 			"intro": "<p>These web lectures cover most topics of Linear Algebra (8 ECTS). You can post your questions in the comments sections on YouTube.</p><p><em>Coming soon!</em>There is also an online course in preparation (4 ECTS) which contains the first half of these web lectures, electronic exercises with feedback and the possibility to pose questions on forums. To access this course, you need a (free) <a href=\"https://moodle.org/\" target=\"_blank\">Moodle</a> account.</p>",
 			"playlists": [
@@ -56,7 +56,7 @@ var data = {
 			]
 		},
 		{
-			"pageId": "calculus",
+			"id": "calculus",
 			"name": "Calculus",
 			"intro": "These web lectures cover a few selected topics of single variable calculus: introduction to functions, sequences, series and power series. What topic should be covered next? Post your ideas in the comments section of the <a href=\"https://www.youtube.com/watch?v=EGDbnmBpfRY\" target=\"_blank\">introduction video</a>!",
 			"playlists": [
@@ -79,7 +79,7 @@ var data = {
 			]
 		},
 		{
-			"pageId": "complexanalysis",
+			"id": "complexanalysis",
 			"name": "Complex Analysis",
 			"intro": "A number of weblectures on Complex Analysis, mainly focussed on the difficult exercises.",
 			"playlists": [
@@ -110,7 +110,7 @@ var data = {
 			]
 		},
 		{
-			"pageId": "miscellaneous",
+			"id": "miscellaneous",
 			"name": "Miscellaneous",
 			"intro": "Some web lectures on precalculus and on general mathematical background.",
 			"playlists": [

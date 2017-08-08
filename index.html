@@ -29,7 +29,7 @@
 			<div class="ui vertical pointing menu">
 				<div class="header item">Courses</div>
 				<!-- ko foreach: courses -->
-				<a class="item" data-bind="text: name, css: { active: $root.pageId === pageId }, attr: { href: 'index.html?page=' + pageId }"></a>
+				<a class="item" data-bind="text: name, css: { active: $root.pageId === id }, attr: { href: 'index.html?page=' + id }"></a>
 				<!-- /ko -->
 			</div>
 		</div>
@@ -59,10 +59,31 @@
 			<div data-bind="if: selectedCourse">
 				<h2 data-bind="text: selectedCourse.name"></h2>
 				<div data-bind="html: selectedCourse.intro"></div>
-				<!-- ko foreach: selectedCourse.playlists -->
-				<h3 data-bind="text: name"></h3>
-				<iframe width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/videoseries?list=' + id}"></iframe>
-				<!-- /ko -->
+				<h3>Videos</h3>
+
+				<div class="ui styled accordion">
+					<!-- ko foreach: selectedCourse.playlists -->
+					<div class="title" data-bind="click: $root.loadPlaylistItems">
+						<i class="dropdown icon"></i>
+						<span style="font-size: 120%;" data-bind="text: name"></span>
+					</div>
+					<div class="content">
+						<p data-bind="if: !loaded()">Loading...</p>
+						<p data-bind="if: loadingFailed">Something went wrong while loading the videos. Please try again later.</p>
+
+						<div class="ui relaxed divided list" style="margin-left: 20px;">
+							<!-- ko foreach: videos -->
+							<a class="item" data-bind="click: $root.showVideoFromPlaylistItem">
+								<i class="right triangle middle aligned icon"></i>
+								<div class="content">
+									<div class="header" data-bind="text: ($index() +1) + '. ' + snippet.title"></div>
+								</div>
+							</a>
+							<!-- /ko -->
+						</div>
+					</div>
+					<!-- /ko -->
+				</div>
 			</div>
 
 			<!-- Search page -->
@@ -84,7 +105,7 @@
 					
 					<div class="ui relaxed divided list" style="margin-bottom: 20px;">
 						<!-- ko foreach: searchResults -->
-						<a class="item" data-bind="click: $root.showVideo">
+						<a class="item" data-bind="click: $root.showVideoFromSearchResult">
 							<i class="right triangle middle aligned icon"></i>
 							<div class="content">
 								<div class="header" data-bind="text: snippet.title"></div>

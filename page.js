@@ -13,9 +13,9 @@ var getUrlParameter = function(parameterKey) {
 
 var getCourseByPageId = function(courses, pageId) {
 	if (pageId) {
-		for (var i = 0; i < courses.length; i++) {
-			var course = courses[i];
-			if (pageId === course.pageId) {
+		for (var i = 0; i < courses().length; i++) {
+			var course = courses()[i];
+			if (pageId === course.id) {
 				return course;
 			}
 		}
@@ -23,9 +23,34 @@ var getCourseByPageId = function(courses, pageId) {
 	return null;
 };
 
+var PlaylistViewModel = function(playlistData) {
+	var self = this;
+	self.id = playlistData.id;
+	self.name = playlistData.name;
+	self.videos = ko.observableArray([]);
+	self.loaded = ko.observable(false);
+	self.loadingFailed = ko.observable(false);
+};
+
+var CourseViewModel = function(courseData) {
+	var self = this;
+	self.id = courseData.id;
+	self.name = courseData.name;
+	self.intro = courseData.intro;
+	var playlistModels = [];
+	for (var playlistIndex = 0; playlistIndex < courseData.playlists.length; playlistIndex++) {
+		playlistModels.push(new PlaylistViewModel(courseData.playlists[playlistIndex]));
+	}
+	self.playlists = ko.observableArray(playlistModels);
+};
+
 var ViewModel = function(data) {
 	var self = this;
-	self.courses = data.courses;
+	var courseModels = [];
+	for (var courseIndex = 0; courseIndex < data.courses.length; courseIndex++) {
+		courseModels.push(new CourseViewModel(data.courses[courseIndex]));
+	}
+	self.courses = ko.observableArray(courseModels);
 	self.pageId = getUrlParameter('page');
 	self.selectedCourse = getCourseByPageId(self.courses, self.pageId);
 	self.searchQuery = ko.observable(null);
@@ -38,12 +63,33 @@ var ViewModel = function(data) {
 	self.invalidSearchQuery = ko.computed(function() {
 		return !self.searchQuery() || !self.searchQuery().trim();
 	});
-	self.showVideo = function(data) {
+	self.loadPlaylistItems = function(playlist) {
+		if (playlist.loaded() && !playlist.loadingFailed()) {
+			return;
+		}
+		$.get('https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=snippet&fields=nextPageToken,prevPageToken,items/snippet(title,resourceId/videoId)&maxResults=50&playlistId=' + playlist.id)
+			.done(function(response) {
+				playlist.videos(response.items);
+			})
+			.fail(function(response) {
+				playlist.loadingFailed(true);
+			})
+			.always(function(response) {
+				playlist.loaded(true);
+			})
+	};
+	self.showVideoFromSearchResult = function(searchResult) {
+		self.showVideo(searchResult.snippet.title, searchResult.id.videoId);
+	};
+	self.showVideoFromPlaylistItem = function(playlistItem) {
+		self.showVideo(playlistItem.snippet.title, playlistItem.snippet.resourceId.videoId);
+	};
+	self.showVideo = function(title, id) {
 		$('#videoModal')
 			.modal({
 				onShow: function() {
-					$(this).find('.header').text(data.snippet.title);
-					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + data.id.videoId + '"></iframe>');
+					$(this).find('.header').text(title);
+					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + id + '"></iframe>');
 				}})
 			.modal('show');
 	};
