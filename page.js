@@ -88,7 +88,7 @@ var ViewModel = function(data) {
 			})
 	};
 	self.showVideo = function(video) {
-		$('#videoModal')
+		$('#videoPopup')
 			.modal({
 				onShow: function() {
 					$(this).find('.header').text(video.title);
