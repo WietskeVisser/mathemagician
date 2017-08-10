@@ -20,18 +20,33 @@ var getCourseByPageId = function(courses, pageId) {
 	return null;
 };
 
-var playlistItemToVideo = function(playlistItem) {
-	return {
-		id: playlistItem.snippet.resourceId.videoId,
-		title: playlistItem.snippet.title
-	};
+var playlistItemsAndVideoItemsToVideos = function(playlistItems, videoItems) {
+	return _.zip(playlistItems, videoItems).map(function(zipped) {
+		var duration = moment.duration(zipped[1].contentDetails.duration);
+		return {
+			id: zipped[0].snippet.resourceId.videoId,
+			title: zipped[0].snippet.title,
+			duration: duration.minutes() + ':' + ('0' + duration.seconds()).slice(-2)
+		};
+	});
 };
 
-var searchResultToVideo = function(searchResult) {
-	return {
-		id: searchResult.id.videoId,
-		title: searchResult.snippet.title
-	};
+var playlistItemsToVideos = function(playlistItems) {
+	return _.map(playlistItems, function(playlistItem) {
+		return {
+			id: playlistItem.snippet.resourceId.videoId,
+			title: playlistItem.snippet.title
+		};
+	});
+};
+
+var searchResultsToVideos = function(searchResults) {
+	return _.map(searchResults, function(searchResult) {
+		return {
+			id: searchResult.id.videoId,
+			title: searchResult.snippet.title
+		};
+	});
 };
 
 var PlaylistViewModel = function(playlistData) {
@@ -77,15 +92,22 @@ var ViewModel = function(data) {
 			return;
 		}
 		$.get('https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=snippet&fields=items/snippet(title,resourceId/videoId)&maxResults=50&playlistId=' + playlist.id)
-			.done(function(response) {
-				playlist.videos(_.map(response.items, playlistItemToVideo));
+			.done(function(playlistItemsResponse) {
+				var videoIds = _.map(playlistItemsResponse.items, function(playlistItem) { return playlistItem.snippet.resourceId.videoId; }).join();
+				$.get('https://www.googleapis.com/youtube/v3/videos?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=contentDetails,snippet&fields=items(id,contentDetails/duration)&id=bo6a47hrHns,gLnhpqajGb8' + videoIds)
+					.done(function(videosResponse) {
+						playlist.videos(playlistItemsAndVideoItemsToVideos(playlistItemsResponse.items, videosResponse.items));
+					})
+					.fail(function(videosResponse) {
+						playlist.videos(playlistItemsToVideos(playlistItemsResponse.items));
+					});
 			})
-			.fail(function(response) {
+			.fail(function(playlistItemsResponse) {
 				playlist.loadingFailed(true);
 			})
-			.always(function(response) {
+			.always(function(playlistItemsResponse) {
 				playlist.loaded(true);
-			})
+			});
 	};
 	self.showVideo = function(video) {
 		$('#videoPopup')
@@ -100,7 +122,7 @@ var ViewModel = function(data) {
 		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=nextPageToken,prevPageToken,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.submittedSearchQuery()) + urlExtension)
 			.done(function(response) {
 				self.searchFailed(false);
-				self.searchResults(_.map(response.items, searchResultToVideo));
+				self.searchResults(searchResultsToVideos(response.items));
 				self.nextPageToken(response.nextPageToken);
 				self.previousPageToken(response.prevPageToken);
 			})

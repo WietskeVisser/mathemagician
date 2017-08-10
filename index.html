@@ -13,6 +13,7 @@
 	<script type="text/javascript" src="modal.min.js"></script>
 	<script type="text/javascript" src="knockout-3.4.2.js"></script>
 	<script type="text/javascript" src="underscore-min.js"></script>
+	<script type="text/javascript" src="moment.min.js"></script>
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="page.js"></script>
 </head>
@@ -77,7 +78,11 @@
 							<a class="item" data-bind="click: $root.showVideo">
 								<i class="right triangle middle aligned icon"></i>
 								<div class="content">
-									<div class="header" data-bind="text: ($index() +1) + '. ' + title"></div>
+									<div class="header" style="margin-bottom: 5px;" data-bind="text: ($index() +1) + '. ' + title"></div>
+									<div class="description">
+										<i class="fitted grey wait icon"></i>
+										<span style="color: grey;" data-bind="text: duration"></span>
+									</div>
 								</div>
 							</a>
 							<!-- /ko -->
