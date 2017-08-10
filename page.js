@@ -13,12 +13,9 @@ var getUrlParameter = function(parameterKey) {
 
 var getCourseByPageId = function(courses, pageId) {
 	if (pageId) {
-		for (var i = 0; i < courses().length; i++) {
-			var course = courses()[i];
-			if (pageId === course.id) {
-				return course;
-			}
-		}
+		return _.find(courses(), function(course) {
+			return pageId === course.id;
+		});
 	}
 	return null;
 };
@@ -51,19 +48,17 @@ var CourseViewModel = function(courseData) {
 	self.id = courseData.id;
 	self.name = courseData.name;
 	self.intro = courseData.intro;
-	var playlistModels = [];
-	for (var playlistIndex = 0; playlistIndex < courseData.playlists.length; playlistIndex++) {
-		playlistModels.push(new PlaylistViewModel(courseData.playlists[playlistIndex]));
-	}
+	var playlistModels = _.map(courseData.playlists, function(playlist) {
+		return new PlaylistViewModel(playlist);
+	});
 	self.playlists = ko.observableArray(playlistModels);
 };
 
 var ViewModel = function(data) {
 	var self = this;
-	var courseModels = [];
-	for (var courseIndex = 0; courseIndex < data.courses.length; courseIndex++) {
-		courseModels.push(new CourseViewModel(data.courses[courseIndex]));
-	}
+	var courseModels = _.map(data.courses, function(course) {
+		return new CourseViewModel(course);
+	});
 	self.courses = ko.observableArray(courseModels);
 	self.pageId = getUrlParameter('page');
 	self.selectedCourse = getCourseByPageId(self.courses, self.pageId);
