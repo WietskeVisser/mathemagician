@@ -23,6 +23,20 @@ var getCourseByPageId = function(courses, pageId) {
 	return null;
 };
 
+var playlistItemToVideo = function(playlistItem) {
+	return {
+		id: playlistItem.snippet.resourceId.videoId,
+		title: playlistItem.snippet.title
+	};
+};
+
+var searchResultToVideo = function(searchResult) {
+	return {
+		id: searchResult.id.videoId,
+		title: searchResult.snippet.title
+	};
+};
+
 var PlaylistViewModel = function(playlistData) {
 	var self = this;
 	self.id = playlistData.id;
@@ -67,9 +81,9 @@ var ViewModel = function(data) {
 		if (playlist.loaded() && !playlist.loadingFailed()) {
 			return;
 		}
-		$.get('https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=snippet&fields=nextPageToken,prevPageToken,items/snippet(title,resourceId/videoId)&maxResults=50&playlistId=' + playlist.id)
+		$.get('https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=snippet&fields=items/snippet(title,resourceId/videoId)&maxResults=50&playlistId=' + playlist.id)
 			.done(function(response) {
-				playlist.videos(response.items);
+				playlist.videos(_.map(response.items, playlistItemToVideo));
 			})
 			.fail(function(response) {
 				playlist.loadingFailed(true);
@@ -78,26 +92,20 @@ var ViewModel = function(data) {
 				playlist.loaded(true);
 			})
 	};
-	self.showVideoFromSearchResult = function(searchResult) {
-		self.showVideo(searchResult.snippet.title, searchResult.id.videoId);
-	};
-	self.showVideoFromPlaylistItem = function(playlistItem) {
-		self.showVideo(playlistItem.snippet.title, playlistItem.snippet.resourceId.videoId);
-	};
-	self.showVideo = function(title, id) {
+	self.showVideo = function(video) {
 		$('#videoModal')
 			.modal({
 				onShow: function() {
-					$(this).find('.header').text(title);
-					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + id + '"></iframe>');
+					$(this).find('.header').text(video.title);
+					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + video.id + '"></iframe>');
 				}})
 			.modal('show');
 	};
 	self.doSearch = function(urlExtension) {
-		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=nextPageToken,prevPageToken,pageInfo,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.submittedSearchQuery()) + urlExtension)
+		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=nextPageToken,prevPageToken,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.submittedSearchQuery()) + urlExtension)
 			.done(function(response) {
 				self.searchFailed(false);
-				self.searchResults(response.items);
+				self.searchResults(_.map(response.items, searchResultToVideo));
 				self.nextPageToken(response.nextPageToken);
 				self.previousPageToken(response.prevPageToken);
 			})

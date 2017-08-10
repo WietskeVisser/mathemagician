@@ -12,6 +12,7 @@
 	<script type="text/javascript" src="accordion.min.js"></script>
 	<script type="text/javascript" src="modal.min.js"></script>
 	<script type="text/javascript" src="knockout-3.4.2.js"></script>
+	<script type="text/javascript" src="underscore-min.js"></script>
 	<script type="text/javascript" src="data.js"></script>
 	<script type="text/javascript" src="page.js"></script>
 </head>
@@ -73,10 +74,10 @@
 
 						<div class="ui relaxed divided list" style="margin-left: 20px;">
 							<!-- ko foreach: videos -->
-							<a class="item" data-bind="click: $root.showVideoFromPlaylistItem">
+							<a class="item" data-bind="click: $root.showVideo">
 								<i class="right triangle middle aligned icon"></i>
 								<div class="content">
-									<div class="header" data-bind="text: ($index() +1) + '. ' + snippet.title"></div>
+									<div class="header" data-bind="text: ($index() +1) + '. ' + title"></div>
 								</div>
 							</a>
 							<!-- /ko -->
@@ -105,10 +106,10 @@
 					
 					<div class="ui relaxed divided list" style="margin-bottom: 20px;">
 						<!-- ko foreach: searchResults -->
-						<a class="item" data-bind="click: $root.showVideoFromSearchResult">
+						<a class="item" data-bind="click: $root.showVideo">
 							<i class="right triangle middle aligned icon"></i>
 							<div class="content">
-								<div class="header" data-bind="text: snippet.title"></div>
+								<div class="header" data-bind="text: title"></div>
 							</div>
 						</a>
 						<!-- /ko -->
