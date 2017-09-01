@@ -88,12 +88,12 @@ var data = {
 					"id": "PLJMXXdEk8kMBklpaHrBjQaKaCI2Vfxy7h"
 				},
 				{
-					"name": "2. Elementary functions",
-					"id": "PLJMXXdEk8kMDETr7WetPdqF9GbQud6jDd"
+					"name": "2. Analytic functions",
+					"id": "PLJMXXdEk8kMCptYlahDr7_-6fw9Ll30GA"
 				},
 				{
-					"name": "3. Analytic functions",
-					"id": "PLJMXXdEk8kMCptYlahDr7_-6fw9Ll30GA"
+					"name": "3. Elementary functions",
+					"id": "PLJMXXdEk8kMDETr7WetPdqF9GbQud6jDd"
 				},
 				{
 					"name": "4. Introduction to integration",
