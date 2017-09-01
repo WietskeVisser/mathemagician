@@ -21,12 +21,17 @@ var getCourseByPageId = function(courses, pageId) {
 };
 
 var playlistItemsAndVideoItemsToVideos = function(playlistItems, videoItems) {
-	return _.zip(playlistItems, videoItems).map(function(zipped) {
-		var duration = moment.duration(zipped[1].contentDetails.duration);
+	var durationMap = new Map();
+	for (var i = 0; i < videoItems.length; i++) {
+		durationMap.set(videoItems[i].id, moment.duration(videoItems[i].contentDetails.duration));
+	}
+	return _.map(playlistItems, function(playlistItem) {
+		var id = playlistItem.snippet.resourceId.videoId;
+		var duration = durationMap.get(id);
 		return {
-			id: zipped[0].snippet.resourceId.videoId,
-			title: zipped[0].snippet.title,
-			duration: duration.minutes() + ':' + ('0' + duration.seconds()).slice(-2)
+			id: id,
+			title: playlistItem.snippet.title,
+			duration: duration ? duration.minutes() + ':' + ('0' + duration.seconds()).slice(-2) : null
 		};
 	});
 };
