@@ -94,7 +94,7 @@ var ViewModel = function(data) {
 		$.get('https://www.googleapis.com/youtube/v3/playlistItems?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=snippet&fields=items/snippet(title,resourceId/videoId)&maxResults=50&playlistId=' + playlist.id)
 			.done(function(playlistItemsResponse) {
 				var videoIds = _.map(playlistItemsResponse.items, function(playlistItem) { return playlistItem.snippet.resourceId.videoId; }).join();
-				$.get('https://www.googleapis.com/youtube/v3/videos?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=contentDetails,snippet&fields=items(id,contentDetails/duration)&id=bo6a47hrHns,gLnhpqajGb8' + videoIds)
+				$.get('https://www.googleapis.com/youtube/v3/videos?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&part=contentDetails,snippet&fields=items(id,contentDetails/duration)&id=' + videoIds)
 					.done(function(videosResponse) {
 						playlist.videos(playlistItemsAndVideoItemsToVideos(playlistItemsResponse.items, videosResponse.items));
 					})
