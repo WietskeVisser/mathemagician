@@ -104,7 +104,11 @@ var data = {
 					"id": "PLJMXXdEk8kMBa1Ke10xEdEFrtp4ZSYaxQ"
 				},
 				{
-					"name": "6. Contour integrals",
+					"name": "6. Residues and poles",
+					"id": "PLJMXXdEk8kMBC9EamRXJDfiVCFROYjPT4"
+				},
+				{
+					"name": "7. Contour integrals",
 					"id": "PLJMXXdEk8kMBRTILerSGnjvQg-_9SlHQR"
 				}
 			]
