@@ -119,7 +119,7 @@ var ViewModel = function(data) {
 			.modal({
 				onShow: function() {
 					$(this).find('.header').text(video.title);
-					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + video.id + '"></iframe>');
+					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + video.id + '?rel=0&amp;showinfo=0"></iframe>');
 				}})
 			.modal('show');
 	};
