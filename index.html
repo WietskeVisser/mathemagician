@@ -129,8 +129,10 @@
 			<!-- Video popup -->
 			<div id="videoPopup" class="ui modal" style="width: 600px; margin: 0em 0em 0em -300px;">
 				<i class="close icon"></i>
-				<div class="header"></div>
-				<div class="content"><iframe width="560" height="315"></iframe></div>
+				<div class="header" data-bind="text: selectedVideo().title"></div>
+				<div class="content">
+					<iframe width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/' + selectedVideo().id + '?rel=0&amp;showinfo=0' }"></iframe>
+				</div>
 			</div>
 		</div>
 	</div>

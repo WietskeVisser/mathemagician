@@ -82,6 +82,7 @@ var ViewModel = function(data) {
 	self.courses = ko.observableArray(courseModels);
 	self.pageId = getUrlParameter('page');
 	self.selectedCourse = getCourseByPageId(self.courses, self.pageId);
+	self.selectedVideo = ko.observable({id: null, title: null});
 	self.searchQuery = ko.observable(null);
 	self.submittedSearchQuery = ko.observable(null);
 	self.searched = ko.observable(false);
@@ -115,13 +116,8 @@ var ViewModel = function(data) {
 			});
 	};
 	self.showVideo = function(video) {
-		$('#videoPopup')
-			.modal({
-				onShow: function() {
-					$(this).find('.header').text(video.title);
-					$(this).find('.content').html('<iframe width="560" height="315" allowfullscreen src="https://www.youtube.com/embed/' + video.id + '?rel=0&amp;showinfo=0"></iframe>');
-				}})
-			.modal('show');
+		self.selectedVideo(video);
+		$('#videoPopup').modal('show');
 	};
 	self.doSearch = function(urlExtension) {
 		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=nextPageToken,prevPageToken,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.submittedSearchQuery()) + urlExtension)
