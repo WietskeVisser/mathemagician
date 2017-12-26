@@ -81,6 +81,9 @@ var VideoPopupViewModel = function() {
 	self.selectedVideo = ko.computed(function() {
 		return self.selectedPlaylist()[self.selectedPlaylistIndex()];
 	});
+	self.header = ko.computed(function() {
+		return self.selectedVideo().title + ' (' + (self.selectedPlaylistIndex() + 1) + '/' + self.selectedPlaylist().length + ')';
+	});
 	self.hasPrevious = ko.computed(function() {
 		return self.selectedPlaylistIndex() > 0;
 	});
