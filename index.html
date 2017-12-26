@@ -75,7 +75,7 @@
 
 						<div class="ui relaxed divided list" style="margin-left: 20px;">
 							<!-- ko foreach: videos -->
-							<a class="item" data-bind="click: $root.showVideo">
+							<a class="item" data-bind="click: function() { $root.showVideo($parent.videos(), $index()); }">
 								<i class="right triangle middle aligned icon"></i>
 								<div class="content">
 									<div class="header" style="margin-bottom: 5px;" data-bind="text: ($index() +1) + '. ' + title"></div>
@@ -111,7 +111,7 @@
 					
 					<div class="ui relaxed divided list" style="margin-bottom: 20px;">
 						<!-- ko foreach: searchResults -->
-						<a class="item" data-bind="click: $root.showVideo">
+						<a class="item" data-bind="click: $root.showSearchResultVideo">
 							<i class="right triangle middle aligned icon"></i>
 							<div class="content">
 								<div class="header" data-bind="text: title"></div>
@@ -127,11 +127,24 @@
 			</div>
 
 			<!-- Video popup -->
-			<div id="videoPopup" class="ui modal" style="width: 600px; margin: 0em 0em 0em -300px;">
+			<div id="videoPopup" data-bind="with: videoPopupModel" class="ui modal" style="width: 720px; margin: 0em 0em 0em -355px;">
 				<i class="close icon"></i>
 				<div class="header" data-bind="text: selectedVideo().title"></div>
 				<div class="content">
-					<iframe width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/' + selectedVideo().id + '?rel=0&amp;showinfo=0' }"></iframe>
+					 <div class="ui centered grid">
+						<i class="one wide huge angle left icon" style="margin-top: 135px;" data-bind="click: previous, css: { link: hasPrevious, disabled: !hasPrevious() }"></i>
+						<iframe class="fourteen wide" width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/' + selectedVideo().id + '?rel=0&amp;showinfo=0' }"></iframe>
+						<i class="one wide huge angle right icon" style="margin-top: 135px;" data-bind="click: next, css: { link: hasNext, disabled: !hasNext() }"></i>
+					 </div>
+				</div>
+			</div>
+
+			<!-- Search result video popup -->
+			<div id="searchResultVideoPopup" class="ui modal" style="width: 600px; margin: 0em 0em 0em -300px;">
+				<i class="close icon"></i>
+				<div class="header" data-bind="text: selectedSearchResult().title"></div>
+				<div class="content">
+					<iframe width="560" height="315" allowfullscreen data-bind="attr: { src: 'https://www.youtube.com/embed/' + selectedSearchResult().id + '?rel=0&amp;showinfo=0' }"></iframe>
 				</div>
 			</div>
 		</div>

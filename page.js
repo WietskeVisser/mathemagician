@@ -74,6 +74,36 @@ var CourseViewModel = function(courseData) {
 	self.playlists = ko.observableArray(playlistModels);
 };
 
+var VideoPopupViewModel = function() {
+	var self = this;
+	self.selectedPlaylist = ko.observable([{id: null, title: null}]);
+	self.selectedPlaylistIndex = ko.observable(0);
+	self.selectedVideo = ko.computed(function() {
+		return self.selectedPlaylist()[self.selectedPlaylistIndex()];
+	});
+	self.hasPrevious = ko.computed(function() {
+		return self.selectedPlaylistIndex() > 0;
+	});
+	self.hasNext = ko.computed(function() {
+		return self.selectedPlaylistIndex() < self.selectedPlaylist().length - 1;
+	});
+	self.previous = function() {
+		if (self.hasPrevious()) {
+			self.selectedPlaylistIndex(self.selectedPlaylistIndex() - 1);
+		}
+	};
+	self.next = function() {
+		if (self.hasNext()) {
+			self.selectedPlaylistIndex(self.selectedPlaylistIndex() + 1);
+		}
+	};
+	self.showVideo = function(playlist, index) {
+		self.selectedPlaylist(playlist);
+		self.selectedPlaylistIndex(index);
+		$('#videoPopup').modal('show');
+	};
+}
+
 var ViewModel = function(data) {
 	var self = this;
 	var courseModels = _.map(data.courses, function(course) {
@@ -82,7 +112,8 @@ var ViewModel = function(data) {
 	self.courses = ko.observableArray(courseModels);
 	self.pageId = getUrlParameter('page');
 	self.selectedCourse = getCourseByPageId(self.courses, self.pageId);
-	self.selectedVideo = ko.observable({id: null, title: null});
+	self.videoPopupModel = new VideoPopupViewModel();
+	self.selectedSearchResult = ko.observable({id: null, title: null});
 	self.searchQuery = ko.observable(null);
 	self.submittedSearchQuery = ko.observable(null);
 	self.searched = ko.observable(false);
@@ -115,9 +146,12 @@ var ViewModel = function(data) {
 				playlist.loaded(true);
 			});
 	};
-	self.showVideo = function(video) {
-		self.selectedVideo(video);
-		$('#videoPopup').modal('show');
+	self.showVideo = function(playlist, index) {
+		self.videoPopupModel.showVideo(playlist, index);
+	};
+	self.showSearchResultVideo = function(video) {
+		self.selectedSearchResult(video);
+		$('#searchResultVideoPopup').modal('show');
 	};
 	self.doSearch = function(urlExtension) {
 		$.get('https://www.googleapis.com/youtube/v3/search?key=AIzaSyAPXWUiss6_gZDIEkxTaibPNLs_16Eqdf4&channelId=UCEjpRpZSjy6mkwKqzeTeVrQ&type=video&part=snippet&fields=nextPageToken,prevPageToken,items(id/videoId,snippet/title)&maxResults=10&q=' + encodeURIComponent(self.submittedSearchQuery()) + urlExtension)
