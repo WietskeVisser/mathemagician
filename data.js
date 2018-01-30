@@ -79,6 +79,17 @@ var data = {
 			]
 		},
 		{
+			"id": "differentialequations",
+			"name": "Differential equations",
+			"intro": "These web lectures cover a few selected topics of differential equations: first order ODEs, second order linear ODEs and modelling. What topic should be covered next? Post your ideas in the comments section of the <a href=\"https://www.youtube.com/watch?v=EGDbnmBpfRY\" target=\"_blank\">introduction video</a>!",
+			"playlists": [
+				{
+					"name": "1. First order ODEs",
+					"id": "PLJMXXdEk8kMD4BdzpY5_PTZQ1T-hYCqIB"
+				}
+			]
+		},
+		{
 			"id": "complexanalysis",
 			"name": "Complex Analysis",
 			"intro": "A number of weblectures on Complex Analysis, mainly focussed on the difficult exercises.",
