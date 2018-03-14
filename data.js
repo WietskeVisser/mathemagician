@@ -86,6 +86,10 @@ var data = {
 				{
 					"name": "1. First order ODEs",
 					"id": "PLJMXXdEk8kMD4BdzpY5_PTZQ1T-hYCqIB"
+				},
+				{
+					"name": "2. Second order ODEs",
+					"id": "PLJMXXdEk8kMBFLiY1vBESP5_dWKA_UW6-"
 				}
 			]
 		},
