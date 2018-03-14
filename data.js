@@ -90,13 +90,17 @@ var data = {
 				{
 					"name": "2. Second order ODEs",
 					"id": "PLJMXXdEk8kMBFLiY1vBESP5_dWKA_UW6-"
+				},
+				{
+					"name": "3. Power series solutions",
+					"id": "PLJMXXdEk8kMDl49VgHK__SbnbkAhsfGI0"
 				}
 			]
 		},
 		{
 			"id": "complexanalysis",
 			"name": "Complex Analysis",
-			"intro": "A number of weblectures on Complex Analysis, mainly focussed on the difficult exercises.",
+			"intro": "A number of weblectures covering the first part of Complex Analysis.",
 			"playlists": [
 				{
 					"name": "1. Introduction and Topology",
