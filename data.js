@@ -46,12 +46,20 @@ var data = {
 					"id": "PLJMXXdEk8kMDP0c549JUz6o4Qw9B0PrQW"
 				},
 				{
-					"name": "11. Scaling rotation matrices and the matrix exponential",
+					"name": "11. Linear transformations",
+					"id": "PLJMXXdEk8kMCxwrFcSkloC6v78NLKqCqa"
+				},
+				{
+					"name": "12. Scaling rotation matrices and the matrix exponential",
 					"id": "PLJMXXdEk8kMBFbks4UMWWxk9tnFAcyCv2"
 				},
 				{
-					"name": "12. Dynamical systems and differential equations",
+					"name": "13. Dynamical systems and differential equations",
 					"id": "PLJMXXdEk8kMDxjfmQefEJ01DuJs5kpJgT"
+				},
+				{
+					"name": "14. Inner product spaces",
+					"id": "PLJMXXdEk8kMBwu5QKkIVCnE5oIC5YjLIx"
 				}
 			]
 		},
