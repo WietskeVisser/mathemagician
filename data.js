@@ -149,6 +149,21 @@ var data = {
 			]
 		},
 		{
+			"id": "fourieranalysis",
+			"name": "Fourier Analysis",
+			"intro": "A number of weblectures covering Fourier transforms, Laplace transforms and their inverses .",
+			"playlists": [
+				{
+					"name": "1. The Fourier Transform",
+					"id": "PLJMXXdEk8kMBDllvgHgyZIthOEPdv7K_h"
+				},
+				{
+					"name": "2. The Laplace Transform",
+					"id": "PLJMXXdEk8kMBEgXy582ciALkdIFaXYWLU"
+				}
+			]
+		},
+		{
 			"id": "miscellaneous",
 			"name": "Miscellaneous",
 			"intro": "Some web lectures on precalculus and on general mathematical background.",
