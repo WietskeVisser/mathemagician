@@ -179,6 +179,21 @@ var data = {
 			]
 		},
 		{
+			"id": "workedex",
+			"name": "Worked examples",
+			"intro": "A number of worked examples from Linear Algebra and Complex Analysis.",
+			"playlists": [
+				{
+					"name": "1. Worked example (Linear Algebra)",
+					"id": "PLJMXXdEk8kMAY6G_csS7SQV_PQikHp3Vu"
+				},
+				{
+					"name": "2. Worked examples (Complex Analysis)",
+					"id": "PLJMXXdEk8kMDtrf9oEtpQzk-rRu9h3aNw"
+				}
+			]
+		},
+		{
 			"id": "miscellaneous",
 			"name": "Miscellaneous",
 			"intro": "Some web lectures on precalculus and on general mathematical background.",
