@@ -164,6 +164,21 @@ var data = {
 			]
 		},
 		{
+			"id": "mathmod",
+			"name": "Mathematical modelling",
+			"intro": "A number of weblectures about mathematical modelling, e.g. in porous media.",
+			"playlists": [
+				{
+					"name": "1. Mathematical modelling basics",
+					"id": "PLJMXXdEk8kMBMFIOotF587Rc8teDbSlvg"
+				},
+				{
+					"name": "2. Mathematical modelling of porous media",
+					"id": "PLJMXXdEk8kMAuJK5q3OOw6HPC68mZ0B3z"
+				}
+			]
+		},
+		{
 			"id": "miscellaneous",
 			"name": "Miscellaneous",
 			"intro": "Some web lectures on precalculus and on general mathematical background.",
