@@ -83,16 +83,9 @@ var data = {
 				{
 					"name": "4. Power series",
 					"id": "PLJMXXdEk8kMBZS4PP2htcZ8XNdLMv3Uvp"
-				}
-			]
-		},
-		{
-			"id": "vectorcalculus",
-			"name": "Vector calculus",
-			"intro": "These web lectures cover a few selected topics of vector functions. What topic should be covered next? Post your ideas in the comments section of the <a href=\"https://www.youtube.com/watch?v=EGDbnmBpfRY\" target=\"_blank\">introduction video</a>!",
-			"playlists": [
+				},
 				{
-					"name": "1. Vector functions",
+					"name": "5. Vector functions",
 					"id": "PLJMXXdEk8kMDDSgbMlO3kYkCfXKY3rTpD"
 				}
 			]
